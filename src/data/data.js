@@ -1,0 +1,27 @@
+export const navbar=[
+    {
+        id:1,
+        icon:'/images/Home.png',
+        route:'root'
+    },
+    {
+        id:2,
+        icon:'/images/gallery.png',
+        route:'gallery'
+    },
+    {
+        id:3,
+        icon:'/images/pricing.png',
+        route:'pricing'
+    },
+    {
+        id:4,
+        icon:'/images/contact.png',
+        route:'contact'
+    },
+    {
+        id:5,
+        icon:'/images/booking.png',
+        route:'booking'
+    },
+]
