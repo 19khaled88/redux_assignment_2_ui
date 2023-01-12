@@ -1,0 +1,65 @@
+.signContainer{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: center;
+    align-items: center;
+    height: 88vh;
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px
+}
+.login-form > div{
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+
+}
+.login-form > div > span{
+    border: 1px solid gray;
+    height: 100%;
+    width: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.login-form > div >  input{
+    height: 30px;
+    width: 250px;
+    background-color: #3a4149;
+    border: none;
+    color: white;
+}
+.login-form >  button{
+    height: 30px;
+    background-color: #ea4c87;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+
+}
+
+.signContainer > button:nth-child(2){
+    width: 286px;
+    height: 30px;
+    background-color: #ea4c87;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+
+
