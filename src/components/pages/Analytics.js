@@ -15,7 +15,17 @@ const Analytics = () => {
           ))
         }
     </div>
-    <div><p>Analytics</p></div>
+    <div>
+      <div style={{margin:'10px'}}>
+          <p>Analytics</p>
+          <p>Analytics</p>
+          <p>Analytics</p>
+          <p>Analytics</p>
+          <p>Analytics</p>
+          <p>Analytics</p>
+          
+      </div>
+    </div>
   </div>
   )
 }

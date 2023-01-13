@@ -1,5 +1,6 @@
+import { useDispatch } from 'react-redux'
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth'
 import auth from '../../../config/firebase'
 
 const initialState={
@@ -14,13 +15,14 @@ const initialState={
 }
 
 export const newUser = createAsyncThunk('auth/createUser',async({email,password})=>{
+    const dispatch = useDispatch()
     const response = await createUserWithEmailAndPassword(auth, email, password)
     const {user} = response
     localStorage.setItem('employeeAuthToken',user.accessToken)
     return {token:user.accessToken,email:user.email,user:user.displayName,isVerified:user.emailVerified}
 })
 
-export const login=createAsyncThunk('auth/login',async({email,password})=>{
+export const login = createAsyncThunk('auth/login',async({email,password})=>{
     const response = await signInWithEmailAndPassword(auth,email,password)
     const {user} = response
     localStorage.setItem('employeeAuthToken',user.accessToken)
@@ -28,9 +30,24 @@ export const login=createAsyncThunk('auth/login',async({email,password})=>{
     
 })
 
+export const loginWithGoogle =createAsyncThunk('auth/google',async()=>{
+    const provider = new GoogleAuthProvider()
+    const response = await signInWithPopup(auth,provider)
+    const {user} = response
+    localStorage.setItem('employeeAuthToken',user.accessToken)
+    return {token:user.accessToken,email:user.email,user:user.displayName,isVerified:user.emailVerified}
+   
+})
+
 const authSlice =createSlice({
     name:'auth',
     initialState,
+    reducers:{
+        setuser:(state,action)=>{
+            state.email = action.payload;
+            state.isLoading = false;
+        }
+    },
     extraReducers:(builder)=>{
         builder
             .addCase(newUser.pending,(state)=>{
@@ -81,7 +98,32 @@ const authSlice =createSlice({
                 state.user = null
                 state.email = ''
             })
+            .addCase(loginWithGoogle.pending,(state,action)=>{
+                state.isLoading = true
+                state.isError = false
+                state.token = null
+                state.user = null
+                state.error = ''
+            })
+            .addCase(loginWithGoogle.fulfilled,(state,action)=>{
+                state.isLoading = false
+                state.isError =  false
+                state.email = action.payload.email
+                state.token = action.payload.token
+                state.user=action.payload.user
+                state.error = ""
+            })
+            .addCase(loginWithGoogle.rejected,(state,action)=>{
+                state.isLoading = false
+                state.isError = true
+                state.error = 'Authentication Error'
+                state.email = null 
+                state.token = null 
+                state.user = null
+                state.email = ''
+            })
     }
 })
 
+export const {setuser} = authSlice.actions;
 export default authSlice.reducer

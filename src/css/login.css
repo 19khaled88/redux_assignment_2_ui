@@ -1,6 +1,7 @@
 .signContainer{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap:10px;
     justify-content: center;
     align-items: center;
     height: 88vh;
@@ -41,4 +42,24 @@
     border-radius: 5px;
     cursor: pointer;
     color: white;
+
 }
+
+.signContainer > button:nth-child(2){
+    width: 286px;
+    height: 30px;
+    background-color: #ea4c87;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+
+

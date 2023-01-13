@@ -1,10 +1,24 @@
-import React, { Children } from 'react'
+import React, { Children, useEffect, useState } from 'react'
 
-import { NavLink,Link } from 'react-router-dom'
+import { NavLink,Link, useNavigate } from 'react-router-dom'
 import '../css/side.css'
 import { menuItem } from './SidebarData'
 const Sidebar = ({children}) => {
- 
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    const token = localStorage.getItem('employeeAuthToken')
+    const googleToken = localStorage.getItem('employeeGoogleToken')
+    if (token === null) {
+      setIsAuthenticated(true)
+      navigate('/login')
+    } 
+    // else if (googleToken === null) {
+    //   setIsAuthenticated(true)
+    //   navigate('/login')
+    // }
+  },[navigate])
   return (
     <div className='container'>
         <div>
