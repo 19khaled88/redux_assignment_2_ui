@@ -17,12 +17,17 @@ const LoginAs = () => {
   const dispatch  = useDispatch()
   const navigate = useNavigate()
   const {email} = useSelector((state)=>state.auth)
-  const [addEmailRole,{isErr,isLoad,isSucc}] = useRegisterMutation()
+  const [addEmailRole,{data:regiData,isLoading:registrationLoading,isError:registrationError,isSuccess:registrationSuccess}] = useRegisterMutation()
   
   const {data,isLoading,isError,error}= useGetUserQuery(email,{refetchOnMountOrArgChange:true})
   
   const loginTypeHandler=(data)=>{
     const body={email:email,role:data}
+    if(body.email){
+      console.log('emali found')
+    }else{
+      console.log('email not found')
+    }
     addEmailRole(body)
   }
   useEffect(()=>{
@@ -32,7 +37,7 @@ const LoginAs = () => {
         dispatch(setuser(user.email))
       }else{
         setTimeout(()=>{
-          setLoading(false)
+          setLoading(true)
           navigate('/login')
         },1000)
         // navigate('/login')
@@ -41,12 +46,31 @@ const LoginAs = () => {
 
   },[navigate])
 
-  if(data?.user?.role && data?.user?.role === 'employee'){
-    navigate('/employee',{state:{data:'Emplyee login'}})
-  }else if(data?.user?.role && data?.user?.role === 'employer'){
-    navigate('/employer',{state:{data:'Emplyer login'}})
-  }
+  // useEffect(()=>{
+  //   if(data?.user?.role && data?.user?.role === 'employee'){
+  //     navigate('/employee',{state:{response:'Candidate Page',email:data?.user?.email}})
+  //   }else if(data?.user?.role && data?.user?.role === 'employer'){
+  //     console.log(data)
+  //     navigate('/employer',{state:{response:'Employer login'}})
+  //   }
+  // },[data,email])
 
+  useEffect(()=>{
+    if(registrationLoading){
+      console.log('loading....')
+    }
+    if(!registrationLoading && registrationError){
+      console.log('error....')
+    }
+    if(!registrationLoading && !registrationError && regiData){
+      if(regiData?.role && regiData?.role === 'employee'){
+        navigate('/employee',{state:{response:'Candidate Page',email:data?.user?.email}})
+      }else if(regiData?.role && regiData?.role === 'employer'){
+        
+        navigate('/employer',{state:{response:'Employer login'}})
+      }
+    }
+  },[registrationError,registrationLoading,registrationSuccess])
   return (
     <div className='loginAsContainer'>
       {

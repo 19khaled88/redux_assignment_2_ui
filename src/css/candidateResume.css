@@ -1,0 +1,184 @@
+.employeeContainer{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width: 80%;
+    margin: auto;
+    align-items: center;
+}
+.employeeContainer > div{
+    width: 100%;
+}
+.experience > div > span > input , .education >  span > input , .training >  span > input, .portfolio > div > input, .github > div > input{
+    height: 25px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid gray;
+    padding-left: 10px;
+}
+.employeeContainer > h2{
+    margin: 5px 0 5px 0;
+}
+
+.summary > p , .skill > p , .experience > p, .qualification > p, .portfolio > p, .github  >p{
+    margin: 2px 0 2px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #802C46;
+}
+.resume{
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    row-gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding-bottom: 20px;
+}
+.summary{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: left;
+}
+.summary > div {
+    width: 100%;
+    height: 100px;
+}
+.summary > div > textarea {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    outline: none;
+}
+
+.skill{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: left;
+}
+.skill > div{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+}
+.skill > div > div:nth-child(1){
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+.skill > div > div:nth-child(2){
+    flex: 1;
+}
+.language > div{
+    display: flex;
+    flex-direction: column;
+}
+.language > div > span{
+    display: flex;
+    flex-direction: row;
+}
+.volunteer{
+    display: flex;
+    flex-direction: column;
+}
+.programmingLanguage{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+.programmingLanguage > span{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.programmingLanguage > span > label{
+    height: auto;
+}
+.programmingLanguage > span > textarea{
+    height: 100%;
+}
+.experience{
+    width: 100%;
+    text-align: left;
+}
+.experience > div{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap:5px;
+}
+.experience > div > span{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+.qualification { 
+    text-align: left;
+    width: 100%;
+}
+.qualification > div{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.education{
+    display: flex;
+    flex-direction: column;
+    
+}
+.education > span{
+    display: flex;
+    flex-direction: column;
+}
+
+.training{
+    display: flex;
+    flex-direction: column;
+}
+.training > span{
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio{
+    text-align: left;
+    width: 100%;
+}
+.portfolio > div{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.github{
+    text-align: left;
+    width: 100%;
+}
+.github > div{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.btn{
+    width: 100%;
+    padding-bottom: 20px;
+}
+.btn > button{
+    width: 50%;
+    float: left;
+    height: 35px;
+    border-radius: 5px;
+    background-color: rgb(50, 115, 220);
+    color: white;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}

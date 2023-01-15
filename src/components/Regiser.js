@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import toast, {Toaster} from 'react-hot-toast'
 import '../css/login.css'
@@ -8,13 +8,18 @@ import { newUser } from '../redux/feature/auth/authSlice'
 const Register = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const {email,token} = useSelector((state)=>state.auth)
   const [state, setState] = useState({
     email: '',
     password: '',
     confirm: '',
   })
 
-
+  useEffect(()=>{
+    if(email && token){
+      navigate('/loginas')
+    }
+  },[email,token])
   const formSubmitHandler = (event) => {
     event.preventDefault()
     const data={
@@ -30,7 +35,6 @@ const Register = () => {
      return toast.error('Password not match')
     }
     dispatch(newUser(data))
-    
   }
   const inputChange = (event) => {
     const value = event.target.value

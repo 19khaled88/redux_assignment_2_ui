@@ -3,10 +3,10 @@ import { useLocation } from 'react-router-dom'
 
 const Employer = () => {
     const {state} = useLocation()
-    const {data} = state
+    const {response} = state
   return (
     <div>
-      <p>{data}</p>
+      <p>{response}</p>
     </div>
   )
 }

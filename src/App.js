@@ -15,6 +15,7 @@ import Welcome from './components/Welcome';
 import LoginAs from './components/LoginAs';
 import Employee from './components/Employee';
 import Employer from './components/Employer';
+import EmployeeDetails from './components/EmployeeDetails';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/employee" element={<Employee />} />
             <Route path="/employer" element={<Employer />} />
+            <Route path="/empDetails" element={<EmployeeDetails />} />
           </Routes>
     </div>
   );

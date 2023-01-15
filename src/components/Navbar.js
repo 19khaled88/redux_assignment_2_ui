@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import {signOut} from 'firebase/auth'
 import { toast, Toaster } from 'react-hot-toast'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import '../css/nav.css'
 import auth from '../config/firebase'
+import { logout } from '../redux/feature/auth/authSlice'
 const Navbar = () => {
   const reactState = useSelector((state) => state)
   // const {auth} = reactState
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loginSuccess,setLoginSuccess] = useState(false)
   /* side effect*/
@@ -21,8 +23,10 @@ const Navbar = () => {
     // else if (googleToken !== null) {
     //   setIsAuthenticated(true)
     // }
-    if(reactState.auth.token){
-      toast.success('login successful')
+
+
+    if(reactState?.auth?.success){
+      toast.success(reactState.auth.success)
     }
 
   }, [reactState])
@@ -31,6 +35,7 @@ const Navbar = () => {
     signOut(auth).then(()=>{
       localStorage.removeItem('employeeAuthToken')
       localStorage.removeItem('employeeGoogleToken')
+      dispatch(logout())
       setIsAuthenticated(false)
       navigate('/login')
     }).catch((error)=>{

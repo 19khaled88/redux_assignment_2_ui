@@ -9,15 +9,18 @@ const initialState={
     token:'',
     isLoading:true,
     user:'',
+    success:'',
+    isSuccess:'',
     isError:false,
     isVerified:'',
     error:''
 }
 
 export const newUser = createAsyncThunk('auth/createUser',async({email,password})=>{
-    const dispatch = useDispatch()
+  
     const response = await createUserWithEmailAndPassword(auth, email, password)
     const {user} = response
+    
     localStorage.setItem('employeeAuthToken',user.accessToken)
     return {token:user.accessToken,email:user.email,user:user.displayName,isVerified:user.emailVerified}
 })
@@ -46,6 +49,18 @@ const authSlice =createSlice({
         setuser:(state,action)=>{
             state.email = action.payload;
             state.isLoading = false;
+        },
+        logout:(state,action)=>{
+            state.email=null;
+            state.role=null;
+            state.token=null;
+            state.isLoading=true;
+            state.user=null;
+            state.success=null;
+            state.isSuccess=null;
+            state.isError=false;
+            state.isVerified=null;
+            state.error=null;
         }
     },
     extraReducers:(builder)=>{
@@ -56,6 +71,8 @@ const authSlice =createSlice({
                 state.token = null
                 state.user = null
                 state.error = ''
+                state.success=null
+                state.isSuccess=null
             })
             .addCase(newUser.fulfilled,(state,action)=>{
                 state.isLoading = false
@@ -63,6 +80,8 @@ const authSlice =createSlice({
                 state.email = action.payload.email
                 state.token = action.payload.token
                 state.user=action.payload.user
+                state.success='Registration Successful'
+                state.isSuccess=true
                 state.error = ""
             })
             .addCase(newUser.rejected,(state,action)=>{
@@ -72,6 +91,8 @@ const authSlice =createSlice({
                 state.email = null 
                 state.token = null 
                 state.user = null
+                state.success=null
+                state.isSuccess=false
                 state.email = ''
             })
             .addCase(login.pending,(state,action)=>{
@@ -79,6 +100,8 @@ const authSlice =createSlice({
                 state.isError = false
                 state.token = null
                 state.user = null
+                state.success=null
+                state.isSuccess=null
                 state.error = ''
             })
             .addCase(login.fulfilled,(state,action)=>{
@@ -87,6 +110,8 @@ const authSlice =createSlice({
                 state.email = action.payload.email
                 state.token = action.payload.token
                 state.user=action.payload.user
+                state.success='Login Successful'
+                state.isSuccess=true
                 state.error = ""
             })
             .addCase(login.rejected,(state,action)=>{
@@ -96,6 +121,8 @@ const authSlice =createSlice({
                 state.email = null 
                 state.token = null 
                 state.user = null
+                state.success=null
+                state.isSuccess=false
                 state.email = ''
             })
             .addCase(loginWithGoogle.pending,(state,action)=>{
@@ -103,6 +130,8 @@ const authSlice =createSlice({
                 state.isError = false
                 state.token = null
                 state.user = null
+                state.success=null
+                state.isSuccess=null
                 state.error = ''
             })
             .addCase(loginWithGoogle.fulfilled,(state,action)=>{
@@ -111,6 +140,8 @@ const authSlice =createSlice({
                 state.email = action.payload.email
                 state.token = action.payload.token
                 state.user=action.payload.user
+                state.success='Google login Successful'
+                state.isSuccess=true
                 state.error = ""
             })
             .addCase(loginWithGoogle.rejected,(state,action)=>{
@@ -119,11 +150,13 @@ const authSlice =createSlice({
                 state.error = 'Authentication Error'
                 state.email = null 
                 state.token = null 
+                state.success=null
+                state.isSuccess=false
                 state.user = null
                 state.email = ''
             })
     }
 })
 
-export const {setuser} = authSlice.actions;
+export const {setuser,logout} = authSlice.actions;
 export default authSlice.reducer
