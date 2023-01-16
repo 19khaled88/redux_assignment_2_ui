@@ -19,7 +19,7 @@ const LoginAs = () => {
   const {email} = useSelector((state)=>state.auth)
   const [addEmailRole,{data:regiData,isLoading:registrationLoading,isError:registrationError,isSuccess:registrationSuccess}] = useRegisterMutation()
   
-  const {data,isLoading,isError,error}= useGetUserQuery(email,{refetchOnMountOrArgChange:true})
+  const {data,isLoading,isError,isSuccess,error}= useGetUserQuery(email,{refetchOnMountOrArgChange:true})
   
   const loginTypeHandler=(data)=>{
     const body={email:email,role:data}
@@ -46,14 +46,7 @@ const LoginAs = () => {
 
   },[navigate])
 
-  // useEffect(()=>{
-  //   if(data?.user?.role && data?.user?.role === 'employee'){
-  //     navigate('/employee',{state:{response:'Candidate Page',email:data?.user?.email}})
-  //   }else if(data?.user?.role && data?.user?.role === 'employer'){
-  //     console.log(data)
-  //     navigate('/employer',{state:{response:'Employer login'}})
-  //   }
-  // },[data,email])
+
 
   useEffect(()=>{
     if(registrationLoading){
@@ -66,11 +59,26 @@ const LoginAs = () => {
       if(regiData?.role && regiData?.role === 'employee'){
         navigate('/employee',{state:{response:'Candidate Page',email:data?.user?.email}})
       }else if(regiData?.role && regiData?.role === 'employer'){
-        
         navigate('/employer',{state:{response:'Employer login'}})
       }
     }
   },[registrationError,registrationLoading,registrationSuccess])
+
+  useEffect(()=>{
+    if(isLoading){
+      console.log('user loading...')
+    }
+    if(!isLoading && isError){
+      console.log('user error......')
+    }
+    if(!isLoading && !isError && data?.user){
+      if(data?.user?.role === 'employee' ){
+        navigate('/employee',{state:{response:'Candidate Page',email:data?.user?.email}})
+      }else if(data?.user?.role === 'employer' ){
+        navigate('/employer',{state:{response:'Employer login'}})
+      }
+    }
+  },[isLoading,isError,data])
   return (
     <div className='loginAsContainer'>
       {

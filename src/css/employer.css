@@ -1,0 +1,88 @@
+
+.jobs{
+    width: 90%;
+    margin: auto;
+}
+.jobs > label{
+    float: right;
+    margin-bottom: 10px;
+    height: 30px;
+    width: 120px;
+    background-color: #7C304B;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+}
+.allJobs{
+    padding-top: 20px;
+   
+}
+.allJobs > p{
+   font-size: 18px;
+   font-weight: 500;
+   padding-top: 10px;
+   text-align: center;
+   margin: auto;
+}
+
+#jobTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #jobTable td, #jobTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #jobTable tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #jobTable tr:hover {background-color: #ddd;}
+  
+  #jobTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .smbtn{
+    background-color: dodgerblue;
+    padding: 3px 10px 3px 10px;
+    border-radius: 5px;
+  }
+
+  .modal-box > h3{
+    text-align: left;
+    padding-bottom: 10px;
+  }
+  .modal-box > form{
+    text-align: left;
+  }
+  .modal-box > form > div{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  .modal-box > form > div > span {
+    display: flex;
+    flex-direction: row;
+    
+  }
+  .modal-box > form > div > span > label {
+    flex: 1;
+  }
+  .modal-box > form > div > span > input, select {
+    flex: 2;
+  }
+  .loading{
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
