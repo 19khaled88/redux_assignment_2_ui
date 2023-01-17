@@ -7,7 +7,7 @@ import PacmanLoader from 'react-spinners/PacmanLoader'
 import auth from '../config/firebase'
 import '../css/employer.css'
 import { setuser } from '../redux/feature/auth/authSlice'
-import { useCreateJobMutation, useJobFindQuery } from '../redux/feature/employer/jobPostApi'
+import { useCloseJobMutation, useCreateJobMutation, useJobFindQuery } from '../redux/feature/employer/jobPostApi'
 const Employer = () => {
     const [loading,setLoading] = useState(true)
     const {email} =useSelector((state)=>state.auth)
@@ -23,6 +23,7 @@ const Employer = () => {
       responsibility:'',
       type:'',
       requirement:'',
+      posts:'',
       deadline:'',
     })
 
@@ -46,6 +47,7 @@ const Employer = () => {
     },[])
 
     const [jobPost,{isLoading:jobLoading,isError:jobError,isSuccess:jobSuccess}] = useCreateJobMutation()
+    const [closeJob,{data:closeJobs,isLoading:closeLoading,isError:closeError}] = useCloseJobMutation()
     const {data,isLoading,isError} = useJobFindQuery(email,{refetchOnMountOrArgChange:true})
     const changeHanlder=(e)=>{
       const {name,value} = e.target
@@ -69,10 +71,12 @@ const Employer = () => {
       }
       if(!isLoading && !isError && data?.findPosts){
         setAllPost(data?.findPosts)
-       
       }
+      
 
     },[isLoading,isError,data?.findPosts])
+
+
     const showPosts=(postData)=>{
             let posts =[]
                   postData.map((item,index)=>{
@@ -86,6 +90,10 @@ const Employer = () => {
                                 <td>{item.type}</td>
                                 <td>{item.requirement}</td>
                                 <td>{item.deadline}</td>
+                                <td>{item?.posts}</td>
+                                <td>{item?.applications}</td>
+                                <td>{item?.isActive}</td>
+                                <td><button onClick={()=>activeHandler(item._id,item?.isActive)} style={{borderRadius:'5px',backgroundColor:'red',padding:'5px',color:'white'}}>Close</button></td>
                               </tr>
                           </tbody>
                     )
@@ -101,19 +109,38 @@ const Employer = () => {
                         <th>Type</th>
                         <th>Requirement</th>
                         <th>Deadline</th>
+                        <th>Total Posts</th>
+                        <th>Applications</th>
+                        <th>Status</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     {posts}
                   </table> : 
                   <div className='loading'><PacmanLoader color="#36d7b7"/></div>
-                
     }
+
+    const activeHandler=(id,status)=>{
+      closeJob({id,status})
+    }
+
+    useEffect(()=>{
+      if(closeLoading){
+        console.log('loading...')
+      }
+      if(!closeLoading && closeError){
+        console.log('error....')
+      }
+      if(!closeLoading && !closeError && closeJobs?.docs){
+        setAllPost(closeJobs?.docs)
+      }
+    },[closeLoading,closeError,closeJobs])
   return (
     <div>
       <p>{response}</p>
 
       <div className='jobs'>
-        <label htmlFor="my-modal-6">New Job Post</label>
+        <label htmlFor="my-modal-6" style={{cursor:'pointer'}}>New Job Post</label>
         <div className='allJobs'>
             <p>Job Post List</p>
              {showPosts(allPosts)}
@@ -167,8 +194,12 @@ const Employer = () => {
                   <label>Deadline</label>
                   <input required type="text" name="deadline" onChange={changeHanlder} placeholder='enter job application deadline'/>
                 </span>
+                <span>
+                  <label>Total posts</label>
+                  <input required type="number" name="posts" onChange={changeHanlder} placeholder='enter total job positions opened'/>
+                </span>
               </div>
-              <div className="modal-action">
+              <div className="modal-action" style={{backgroundColor:'burlywood',borderRadius:'5px',fontSize:'18px',fontWeight:'500'}}>
                 <button type="submit" className='smbtn'>Submit</button>
               </div>
             </form>

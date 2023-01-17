@@ -13,8 +13,14 @@ const candidateApi = apiSlice.injectEndpoints({
             query:(email)=>({
                 url:`/getResume/?email=${email}`
             })
+        }),
+      
+       getAllJobs:builder.query({
+            query:()=>({
+                url:`/getAllJob`
+            })
         })
     })
 })
 
-export const {useResumeMutation,useResumeFindQuery} = candidateApi
+export const {useResumeMutation,useResumeFindQuery,useGetAllJobsQuery} = candidateApi

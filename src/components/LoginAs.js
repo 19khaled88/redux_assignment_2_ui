@@ -73,9 +73,9 @@ const LoginAs = () => {
     }
     if(!isLoading && !isError && data?.user){
       if(data?.user?.role === 'employee' ){
-        navigate('/employee',{state:{response:'Candidate Page',email:data?.user?.email}})
+        navigate('/employee',{state:{response:'Candidate Dashboard',email:data?.user?.email}})
       }else if(data?.user?.role === 'employer' ){
-        navigate('/employer',{state:{response:'Employer login'}})
+        navigate('/employer',{state:{response:'Employer Dashboard'}})
       }
     }
   },[isLoading,isError,data])

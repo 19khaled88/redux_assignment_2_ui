@@ -5,6 +5,7 @@ const apiSlice = createApi({
     baseQuery:fetchBaseQuery({
         baseUrl:'http://localhost:8008/',
     }),
+    tagTypes:['posts'],
     endpoints:(builder)=>({}),
 })
 

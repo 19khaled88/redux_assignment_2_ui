@@ -12,9 +12,18 @@ const candidateApi = apiSlice.injectEndpoints({
         jobFind:builder.query({
             query:(email)=>({
                 url:`/findPostJobs/?email=${email}`
-            })
+            }),
+            providesTags:['posts']
+        }),
+        closeJob:builder.mutation({
+            query:({id,...status})=>({
+                method:'POST',
+                url:`/editPost/?id=${id}`,
+                body:status
+            }),
+            providesTags:['posts']
         })
     })
 })
 
-export const {useCreateJobMutation,useJobFindQuery} = candidateApi
+export const {useCreateJobMutation,useJobFindQuery,useCloseJobMutation} = candidateApi

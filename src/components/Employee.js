@@ -75,6 +75,7 @@ const Employee = () => {
 
    const [addResume, {isLoading:addLoading,isError:addError,isSuccess:addSuccess}] = useResumeMutation()
    const{data:findResume,isLoading,isError,isSuccess} = useResumeFindQuery(loggedInUser,{refetchOnMountOrArgChange:true})
+   
     
     const {state} = useLocation()
     const {response,email} = state
